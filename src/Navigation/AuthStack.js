@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../Containers/Login'
 import Register from '../Containers/Register'
-import { LOGIN, LOGOUT } from '../Constants/ScreenConstant';
+import { LOGIN, REGISTER } from '../Constants/ScreenConstant';
 const AuthStack = () => {
 
     const Stack = createNativeStackNavigator()
@@ -11,7 +11,7 @@ const AuthStack = () => {
 return (
 <Stack.Navigator  screenOptions={{headerShown: false}}>
     <Stack.Screen name={LOGIN} component = {Login}/>
-    <Stack.Screen name={LOGOUT} component = {Register}/>
+    <Stack.Screen name={REGISTER} component = {Register}/>
 </Stack.Navigator>
   );
 };
