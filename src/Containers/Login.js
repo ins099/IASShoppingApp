@@ -1,27 +1,34 @@
 import {
   Image,
-  KeyboardAvoidingView,
-  Platform,
+  Keyboard,
   Pressable,
   StyleSheet,
-  Text,
   TextInput,
+  TouchableWithoutFeedback,
+  TouchableWithoutFeedbackBase,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {Colors} from '../Constants/Colors';
 import {AppText} from '../Components/common/app-text';
 import {AppButton} from '../Components/common/AppButton';
-import {InputField} from '../Components/common';
 import {Icon} from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { REGISTER } from '../Constants/ScreenConstant';
 
-const Login = () => {
+const Login = (props) => {
+  const {navigation} = props
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hidePass, setHidePass] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const onPressLogin = () => {
+    console.log('Login')
+  }
+  const onPressSignup = () => {
+    navigation.navigate(REGISTER)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.secondaryContainer}>
@@ -31,7 +38,9 @@ const Login = () => {
             source={require('../Assets/images/logo.png')}
           />
         </View>
-        <KeyboardAwareScrollView contentContainerStyle={{height:"100%"}} >
+        <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss()}}  >
+          <View style = {styles.testContainer}>
+            <View style={styles.loginContainer}>
           <View>
             <AppText color={Colors.primary} size={20}>
               Sign In
@@ -68,7 +77,9 @@ const Login = () => {
           </View>
 
           <View style={styles.button}>
-            <AppButton children={'Log In'} loading={isLoading} />
+            <AppButton onPress = {onPressLogin} children={'Log In'} loading={isLoading} />
+          </View>
+
           </View>
 
           <View style={styles.bottomContainer}>
@@ -99,7 +110,7 @@ const Login = () => {
             </View>
             <View style={[styles.frgtSupContainer, {}]}>
               <View style={styles.forgotPassword}>
-                <Pressable>
+                <Pressable onPress={onPressSignup}>
                   <AppText bold color={Colors.primary}>
                     Don't Have An Account ?
                   </AppText>
@@ -114,7 +125,8 @@ const Login = () => {
               </View>
             </View>
           </View>
-        </KeyboardAwareScrollView>
+          </View>
+        </TouchableWithoutFeedback>
 
       </View>
     </View>
@@ -151,6 +163,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     // backgroundColor: 'orange',
+    marginVertical:'3%'
   },
   input: {
     color: Colors.black,
